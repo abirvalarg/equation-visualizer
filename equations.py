@@ -204,7 +204,8 @@ def parse_power(tokens: list[str]) -> tuple[list[str], Action]:
 
 def parse_unary_minus(tokens: list[str]) -> tuple[list[str], Action]:
     if tokens[0] == '-':
-        return Sub(Constant(0), parse_unary_minus(tokens[1:]))
+        remainder, expr = parse_unary_minus(tokens[1:])
+        return remainder, Sub(Constant(0), expr)
     else:
         return parse_atom(tokens)
 
